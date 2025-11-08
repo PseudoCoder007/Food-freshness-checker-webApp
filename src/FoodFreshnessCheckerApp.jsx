@@ -1,8 +1,8 @@
-// 1. Import the backend FIRST to register it.
-import '@tensorflow/tfjs-backend-webgl';
-
-// 2. Import the core tfjs library.
+// 1. Import the core tfjs library.
 import * as tf from '@tensorflow/tfjs';
+
+// 2. Import the WebGL backend.
+import '@tensorflow/tfjs-backend-webgl'; 
 
 // 3. Import mobilenet.
 import * as mobilenet from '@tensorflow-models/mobilenet';
@@ -46,24 +46,27 @@ export default function FoodFreshnessChecker() {
   //   load();
   //   return () => (canceled = true);
   // }, []);
-
-  useEffect(() => {
+useEffect(() => {
     let canceled = false;
     async function load() {
       setLoadingModel(true);
       try {
+        // Explicitly set the backend to WebGL
+        await tf.setBackend('webgl');
+        console.log('TF.js backend set to WebGL.');
+
         // Wait for the backend to be fully ready
         await tf.ready();
-        console.log('TF.js backend ready.'); // Good for debugging
+        console.log('TF.js backend ready.');
 
         // Now load the model
         const m = await mobilenet.load({ version: 2, alpha: 1.0 });
-        console.log('MobileNet model loaded.'); // Good for debugging
+        console.log('MobileNet model loaded.');
 
         if (!canceled) setModel(m);
       } catch (e) {
         // This will log the REAL error to the console
-        console.error('Failed loading model', e);
+        console.error('Failed loading model:', e);
       } finally {
         if (!canceled) setLoadingModel(false);
       }
