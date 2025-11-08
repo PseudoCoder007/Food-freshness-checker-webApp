@@ -2,9 +2,6 @@ import React, { useRef, useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import * as mobilenet from '@tensorflow-models/mobilenet';
 
-// FoodFreshnessChecker.jsx
-// Updated: uses Bootstrap for layout and professional look, plus contained CSS for black/red theme.
-// NOTE: This file includes an internal CSS string for quick setup. For production move CSS to a separate .css file.
 
 export default function FoodFreshnessChecker() {
   const [model, setModel] = useState(null);
@@ -27,7 +24,12 @@ export default function FoodFreshnessChecker() {
     async function load() {
       setLoadingModel(true);
       try {
-        const m = await mobilenet.load({ version: 2, alpha: 1.0 });
+        const m = await mobilenet.load({
+          version: 2,
+          alpha: 1.0,
+          modelUrl: 'https://storage.googleapis.com/tfjs-models/tfjs/mobilenet_v2_1.0_224/model.json'
+        });
+
         if (!canceled) setModel(m);
       } catch (e) {
         console.error('Failed loading mobilenet', e);
