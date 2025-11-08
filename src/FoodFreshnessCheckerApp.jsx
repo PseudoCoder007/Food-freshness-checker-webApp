@@ -1,10 +1,15 @@
-//new imports
-import '@tensorflow/tfjs';
+// 1. Import the backend FIRST to register it.
 import '@tensorflow/tfjs-backend-webgl';
 
+// 2. Import the core tfjs library.
+import * as tf from '@tensorflow/tfjs';
+
+// 3. Import mobilenet.
+import * as mobilenet from '@tensorflow-models/mobilenet';
+
+// 4. Your other imports
 import React, { useRef, useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import * as mobilenet from '@tensorflow-models/mobilenet';
 
 
 export default function FoodFreshnessChecker() {
@@ -23,16 +28,42 @@ export default function FoodFreshnessChecker() {
   const rottenPreview = useRef();
   const testPreview = useRef();
 
+  // useEffect(() => {
+
+  //   let canceled = false;
+  //   async function load() {
+  //     setLoadingModel(true);
+  //     try {
+
+  //       const m = await mobilenet.load({ version: 2, alpha: 1.0 });
+  //       if (!canceled) setModel(m);
+  //     } catch (e) {
+  //       console.error('Failed loading mobilenet', e);
+  //     } finally {
+  //       if (!canceled) setLoadingModel(false);
+  //     }
+  //   }
+  //   load();
+  //   return () => (canceled = true);
+  // }, []);
+
   useEffect(() => {
     let canceled = false;
     async function load() {
       setLoadingModel(true);
       try {
+        // Wait for the backend to be fully ready
+        await tf.ready();
+        console.log('TF.js backend ready.'); // Good for debugging
 
+        // Now load the model
         const m = await mobilenet.load({ version: 2, alpha: 1.0 });
+        console.log('MobileNet model loaded.'); // Good for debugging
+
         if (!canceled) setModel(m);
       } catch (e) {
-        console.error('Failed loading mobilenet', e);
+        // This will log the REAL error to the console
+        console.error('Failed loading model', e);
       } finally {
         if (!canceled) setLoadingModel(false);
       }
@@ -40,7 +71,7 @@ export default function FoodFreshnessChecker() {
     load();
     return () => (canceled = true);
   }, []);
-
+  
   function fileToImage(file, imgEl) {
     return new Promise((resolve, reject) => {
       const url = URL.createObjectURL(file);
