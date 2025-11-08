@@ -1,70 +1,79 @@
-# Getting Started with Create React App
+# 🍎 Food Freshness Checker
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+> A smart web app that uses **Machine Learning (TensorFlow.js + MobileNet)** to detect whether food is **fresh** or **rotten** based on image uploads.  
+> Built with **React**, **Bootstrap**, and a clean **black & red aesthetic** theme — fully deployable on **Vercel**.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## 🌐 Live Demo
+🔗 **[View on Vercel](https://your-vercel-link.vercel.app/)**  
+*(Replace this with your deployed link once live)*
 
-### `npm start`
+---
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## 🖼️ Screenshot
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+![Food Freshness Checker UI](./Screenshot%202025-11-08%20110610.png)
 
-### `npm test`
+---
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 🧾 Project Structure
 
-### `npm run build`
+food-freshness-checker/
+├── public/
+├── src/
+│   ├── FoodFreshnessChecker.jsx  # Main component with ML + UI
+│   ├── App.js                    # Root component
+│   ├── index.js                  # App entry
+│   └── index.css                 # Global CSS
+├── package.json
+├── README.md
+└── .gitignore
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+---
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 🚀 Features
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+✅ Upload fresh & rotten food images as references  
+✅ Upload a test image to predict food condition  
+✅ Uses **TensorFlow.js MobileNet embeddings** for ML-based comparison  
+✅ Includes a **color heuristic** to detect browning or spoilage  
+✅ Fully client-side (no backend required)  
+✅ Responsive and professionally designed with **Bootstrap**  
+✅ Deploy easily with **Vercel**
 
-### `npm run eject`
+---
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## 🧠 How It Works
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+1. **Upload a fresh food image** → used as a visual reference.  
+2. *(Optionally)* **Upload a rotten image** → helps the model understand what “bad” looks like.  
+3. **Upload a test image** → the app analyzes similarity between reference and test images using:
+   - MobileNet embeddings (for visual features)
+   - Cosine similarity (for comparing image features)
+   - Color analysis (to check for dark/brown tones)
+4. Combines all results to predict:  
+   🟢 **EDIBLE** or 🔴 **NOT EDIBLE**
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+---
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## 🧩 Tech Stack
 
-## Learn More
+| Layer | Technology |
+|-------|-------------|
+| Frontend | React (Create React App) |
+| Styling | Bootstrap 5 + Custom CSS |
+| Machine Learning | TensorFlow.js + MobileNet |
+| Hosting | Vercel |
+| Language | JavaScript (ES6) |
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+---
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## ⚙️ Installation
 
-### Code Splitting
+Clone this repository and install dependencies:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```bash
+git clone https://github.com/<your-username>/food-freshness-checker.git
+cd food-freshness-checker
+npm install
