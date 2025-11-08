@@ -1,3 +1,7 @@
+//new imports
+import '@tensorflow/tfjs';
+import '@tensorflow/tfjs-backend-webgl';
+
 import React, { useRef, useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import * as mobilenet from '@tensorflow-models/mobilenet';
@@ -24,12 +28,8 @@ export default function FoodFreshnessChecker() {
     async function load() {
       setLoadingModel(true);
       try {
-        const m = await mobilenet.load({
-          version: 2,
-          alpha: 1.0,
-          modelUrl: 'https://storage.googleapis.com/tfjs-models/tfjs/mobilenet_v2_1.0_224/model.json'
-        });
 
+        const m = await mobilenet.load({ version: 2, alpha: 1.0 });
         if (!canceled) setModel(m);
       } catch (e) {
         console.error('Failed loading mobilenet', e);

@@ -5,6 +5,7 @@
   "dependencies": {
     "@tensorflow-models/mobilenet": "^2.1.1",
     "@tensorflow/tfjs": "^4.22.0",
+    "@tensorflow/tfjs-backend-webgl": "^4.22.0",
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.0",
@@ -43,5 +44,9 @@
     "autoprefixer": "^10.4.21",
     "postcss": "^8.5.6",
     "tailwindcss": "^4.1.17"
-  }
+  },
+  "description": "> A smart web app that uses **Machine Learning (TensorFlow.js + MobileNet)** to detect whether food is **fresh** or **rotten** based on image uploads.   > Built with **React**, **Bootstrap**, and a clean **black & red aesthetic** theme — fully deployable on **Vercel**.",
+  "main": "index.js",
+  "author": "",
+  "license": "ISC"
 }
