@@ -1,6 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import * as tf from '@tensorflow/tfjs';
 import * as mobilenet from '@tensorflow-models/mobilenet';
 
 // FoodFreshnessChecker.jsx
