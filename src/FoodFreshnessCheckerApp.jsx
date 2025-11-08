@@ -1,19 +1,9 @@
-// 1. Import the core tfjs library.
-import * as tf from '@tensorflow/tfjs';
-
-// 2. FORCE the WebGL backend to be included by importing a variable.
-import { webgl } from '@tensorflow/tfjs-backend-webgl'; 
-
-// 3. Import mobilenet.
-import * as mobilenet from '@tensorflow-models/mobilenet';
-
-// 4. Your other imports
+import * as tf from "@tensorflow/tfjs";
+import "@tensorflow/tfjs-backend-webgl";
+import "@tensorflow/tfjs-backend-cpu";
+import * as mobilenet from "@tensorflow-models/mobilenet";
 import React, { useRef, useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
-// 5. Create a "dummy" variable to ensure the 'webgl' import isn't removed.
-// This tells the bundler (like the one Vercel uses) that the import is being used.
-const _ = webgl;
 
 
 export default function FoodFreshnessChecker() {
@@ -50,34 +40,29 @@ export default function FoodFreshnessChecker() {
   //   load();
   //   return () => (canceled = true);
   // }, []);
-useEffect(() => {
-    let canceled = false;
-    async function load() {
-      setLoadingModel(true);
-      try {
-        // Explicitly set the backend to WebFile
-        await tf.setBackend('webgl');
-        console.log('TF.js backend set to WebGL.');
+  
+  useEffect(() => {
+  let canceled = false;
+  async function load() {
+    setLoadingModel(true);
+    try {
+      // Try WebGL first, fall back to CPU if it fails
+      await tf.setBackend("webgl").catch(() => tf.setBackend("cpu"));
+      await tf.ready();
+      console.log("TF.js backend:", tf.getBackend());
 
-        // Wait for the backend to be fully ready
-        await tf.ready();
-        console.log('TF.js backend ready.');
-
-        // Now load the model
-        const m = await mobilenet.load({ version: 2, alpha: 1.0 });
-        console.log('MobileNet model loaded.');
-
-        if (!canceled) setModel(m);
-      } catch (e) {
-        // This will log the REAL error to the console
-        console.error('Failed loading model:', e);
-      } finally {
-        if (!canceled) setLoadingModel(false);
-      }
+      const m = await mobilenet.load({ version: 2, alpha: 1.0 });
+      if (!canceled) setModel(m);
+      console.log("MobileNet loaded ✅");
+    } catch (err) {
+      console.error("Failed loading MobileNet:", err);
+    } finally {
+      if (!canceled) setLoadingModel(false);
     }
-    load();
-    return () => (canceled = true);
-  }, []);
+  }
+  load();
+  return () => (canceled = true);
+}, []);
 
   function fileToImage(file, imgEl) {
     return new Promise((resolve, reject) => {
