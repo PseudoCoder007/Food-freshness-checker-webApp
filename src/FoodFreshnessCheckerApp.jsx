@@ -1,8 +1,8 @@
 // 1. Import the core tfjs library.
 import * as tf from '@tensorflow/tfjs';
 
-// 2. Import the WebGL backend.
-import '@tensorflow/tfjs-backend-webgl'; 
+// 2. FORCE the WebGL backend to be included by importing a variable.
+import { webgl } from '@tensorflow/tfjs-backend-webgl'; 
 
 // 3. Import mobilenet.
 import * as mobilenet from '@tensorflow-models/mobilenet';
@@ -10,6 +10,10 @@ import * as mobilenet from '@tensorflow-models/mobilenet';
 // 4. Your other imports
 import React, { useRef, useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+
+// 5. Create a "dummy" variable to ensure the 'webgl' import isn't removed.
+// This tells the bundler (like the one Vercel uses) that the import is being used.
+const _ = webgl;
 
 
 export default function FoodFreshnessChecker() {
@@ -51,7 +55,7 @@ useEffect(() => {
     async function load() {
       setLoadingModel(true);
       try {
-        // Explicitly set the backend to WebGL
+        // Explicitly set the backend to WebFile
         await tf.setBackend('webgl');
         console.log('TF.js backend set to WebGL.');
 
@@ -74,7 +78,7 @@ useEffect(() => {
     load();
     return () => (canceled = true);
   }, []);
-  
+
   function fileToImage(file, imgEl) {
     return new Promise((resolve, reject) => {
       const url = URL.createObjectURL(file);
