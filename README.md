@@ -6,8 +6,7 @@
 ---
 
 ## 🌐 Live Demo
-🔗 **[View on Vercel](https://your-vercel-link.vercel.app/)**  
-*(Replace this with your deployed link once live)*
+🔗 **[View on Vercel](https://food-freshness-chec-git-1fd24b-mohd-saif-alis-projects-f428fe6e.vercel.app?_vercel_share=ux8DSkVbhyVioQNc1wjiO0G0SOkTTlVy)**  
 
 ---
 
